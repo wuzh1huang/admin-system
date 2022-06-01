@@ -37,9 +37,15 @@ module.exports = {
       errors: true
     },
     proxy: {
-      [process.env.VUE_APP_BASE_API]: { // 匹配所有以 '/api1'开头的请求路径
+      [process.env.VUE_APP_BASE_API + '/admin/acl']: { // 匹配所有以 process.env.VUE_APP_BASE_API + '/admin/acl'开头的请求路径
         target: 'http://39.98.123.211:8170', // 代理目标的基础路径
-        pathRewrite: { [`^${process.env.VUE_APP_BASE_API}`]: '' }, // 转发时将/api1去掉
+        pathRewrite: { [`^${process.env.VUE_APP_BASE_API}`]: '' }, // 转发时将process.env.VUE_APP_BASE_API去掉
+        ws: true,
+        changeOrigin: true
+      },
+      [process.env.VUE_APP_BASE_API + '/admin/product']: { // 匹配所有以 process.env.VUE_APP_BASE_API + '/admin/product'开头的请求路径
+        target: 'http://39.98.123.211:8416', // 代理目标的基础路径
+        pathRewrite: { [`^${process.env.VUE_APP_BASE_API}`]: '' }, // 转发时将process.env.VUE_APP_BASE_API去掉
         ws: true,
         changeOrigin: true
       }
